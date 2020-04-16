@@ -1,6 +1,5 @@
 from flask import Flask, render_template, request, redirect
 from so import get_jobs
-from indeed import get_jobs
 
 app = Flask("Scrapper")
 
@@ -24,7 +23,8 @@ def report():
             db[word] = jobs
     else:
         return redirect("/")
-    return render_template("report.html", 
+    return render_template(
+    "report.html", 
     searchingBy= word,
     resultsNumber = len(jobs),
     jobs = jobs
