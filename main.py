@@ -1,5 +1,6 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, send_file
 from so import get_jobs
+from save import save_to_file
 
 app = Flask("Scrapper")
 
@@ -29,5 +30,19 @@ def report():
     resultsNumber = len(jobs),
     jobs = jobs
     )
+@app.route("/export")
+def export():
+    try:
+        word = request.args.get('word')
+        if not word:
+            raise Exception()
+        word = word.lower()
+        jobs = db.get(word)
+        if not jobs:
+            raise Exception()
+        save_to_file(jobs)
+        return send_file("jobs.csv")
+    except:
+        return redirect("/")
 
 app.run(host="0.0.0.0")
