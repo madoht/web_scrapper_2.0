@@ -11,6 +11,7 @@ db = {}
 def home():
     return render_template("potato.html")
 
+
 @app.route("/report")
 def report():
     word = request.args.get('word')
@@ -30,6 +31,8 @@ def report():
     resultsNumber = len(jobs),
     jobs = jobs
     )
+
+
 @app.route("/export")
 def export():
     try:
